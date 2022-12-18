@@ -10,4 +10,8 @@ class Item extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function orders(){
+        return $this->belongsToMany('App\Models\Order')->withTimestamps();
+    }
 }

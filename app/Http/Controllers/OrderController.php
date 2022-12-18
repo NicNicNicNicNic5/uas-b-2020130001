@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Item;
 use App\Models\Order;
 use Illuminate\Http\Request;
 
@@ -20,7 +21,16 @@ class OrderController extends Controller
     }
 
     public function createOrder(){
-        return view('createOrder');
+        $items = Item::all();
+        $orders = Order::all();
+        return view('createOrder', compact('items'));
+    }
+
+    public function attach(){
+        // $orders = Order::find(last());
+        $orders = Order::find(5);
+        $items = Item::find([1, 2, 4]);
+        $orders->categories()->attach($items);
     }
 
     public function index()
@@ -35,7 +45,14 @@ class OrderController extends Controller
      */
     public function create()
     {
-        //
+        $orders = Order::create([
+            "id" => "1",
+            "status" => "Selesai"
+        ]);
+        $orders = Order::create([
+            "id" => "2",
+            "status" => "Selesai"
+        ]);
     }
 
     /**
@@ -46,7 +63,15 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // $rules = [
+        //     'id' => 'required|numeric|min:1000000000000000|max:9999999999999999',
+        //     'nama' => 'required|max:255',
+        // ];
+        // $validated = $request->validate($rules);
+        // Order::create($validated);
+
+        // $request->session()->flash('success', "Item yang bernama {$validated['nama']} sudah berhasil ditambahkan.");
+        // return redirect()->route('items.index');
     }
 
     /**

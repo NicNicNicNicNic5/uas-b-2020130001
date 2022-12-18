@@ -10,4 +10,11 @@ class Order extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public $incrementing = true;
+
+    public function items()
+    {
+        return $this->belongsToMany('App\Models\Item')->withTimestamps();
+    }
 }

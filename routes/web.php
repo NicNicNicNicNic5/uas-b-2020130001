@@ -22,4 +22,4 @@ Route::get('/order', [OrderController::class, 'order']);
 Route::get('/order/order', [OrderController::class, 'order']);
 Route::get('/order/createOrder', [OrderController::class, 'createOrder']);
 
-
+Route::get('/order/create', [OrderController::class, 'create']);

@@ -23,7 +23,7 @@
                         <h2>Orders List</h2>
                     </div>
                     <div class="col-sm-6">
-                        <a href="{{ route('items.create') }}" class="btn btn-success">
+                        <a href="{{ url('/order/createOrder') }}" class="btn btn-success">
                             <i class="fa fa-plus fa-fw" aria-hidden="true"></i>
                             <span>Add New Order</span>
                         </a>
@@ -35,16 +35,27 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>id</th>
-                        <th>status</th>
+                        <th>ID</th>
+                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse ($orders as $order)
                         <tr>
-                            {{-- <th scope="row">{{ $loop->iteration }}</th> --}}
-                            <td>{{ $order->id }}</td>
-                            <td>{{ $order->status }}</td>
+                            <th width="50%" scope="row">{{ $loop->iteration }}</th>
+                            <td width="50%">{{ $order->id }}</td>
+                            <td width="50%">{{ $order->status }}</td>
+                            {{-- <td>
+                                <input class="form-check-input" type="radio" name="status" id="status" {{ old('status') ? 'checked' : '' }}>
+                                <label class="form-check-label" for="status">
+                                    {{ __('Menunggu Pembayaran') }}
+                                </label>
+                                <BR>
+                                <input class="form-check-input" type="radio" name="status" id="status" {{ old('status') ? 'checked' : '' }}>
+                                <label class="form-check-label" for="status">
+                                    {{ __('Selesai') }}
+                                </label>
+                            </td> --}}
                         </tr>
                     @empty
                         <tr>
