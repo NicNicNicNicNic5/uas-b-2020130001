@@ -21,6 +21,7 @@
             <tr>
                 <input type="hidden" name="id{{ $loop->iteration }}" id="id" value={{ $item->id }}>
                 <input type="hidden" name="stok{{ $loop->iteration }}" id="stok" value={{ $item->stok }}>
+                <input type="hidden" name="harga{{ $loop->iteration }}" id="harga" value={{ $item->harga }}>
                     <td width="25%">{{ $item->nama }}</td>
                     <td width="25%">{{ $item->stok }}</td>
                     <td width="25%">{{ "Rp. $item->harga" }}</td>
@@ -38,6 +39,9 @@
                 </tr>
             @endforelse
         </table>
+
+
+
         <button class="btn btn-primary btn-lg btn-block" type="submit">Order</button>
     </form>
 @endsection

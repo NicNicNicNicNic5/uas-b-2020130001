@@ -77,6 +77,7 @@
                             <td width="40%">
                                 <div class="col-sm-4">
                                     <div class="btn-group" role="group">
+                                        {{-- <a href="{{ route('orders.show', $order->id) }}" class="btn btn-warning ml-1">Show</a> --}}
                                         {{-- <a href="{{ route('orders.edit', $order->id) }}" class="btn btn-primary ml-1">Edit</a> --}}
                                         <form action="{{ route('orders.destroy', $order->id) }}" method="POST">
                                             <button type="submit" class="btn btn-danger ml-3">Delete</button>

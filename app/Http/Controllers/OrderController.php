@@ -64,7 +64,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        // dump(Order::find(0)->id);
+        $tagihan = 0;
         $isidata = Order::count();
         // dump($isidata);
         if ($isidata == 0) {
@@ -81,7 +81,7 @@ class OrderController extends Controller
 
             $list = Item::all()->count();
             for ($i = 1; $i <= $list; $i++) {
-                if ($request['quantity' . $i] > 0 && $request['quantity' . $i] <= $request['stok' . $i]) {
+                if ($request['quantity' . $i] >= 0 && $request['quantity' . $i] <= $request['stok' . $i]) {
                     DB::table('order_item')->insert([
                         'order_id' => $order_Id,
                         'item_id' => $request['id' . $i],
@@ -117,7 +117,7 @@ class OrderController extends Controller
             $list = Item::all()->count();
             for ($i = 1; $i <= $list; $i++) {
                 // DB::table('items')->where('id', $request['id' . $i])->update(['stok'=>500]);
-                if ($request['quantity' . $i] > 0 && $request['quantity' . $i] <= $request['stok' . $i]) {
+                if ($request['quantity' . $i] >= 0 && $request['quantity' . $i] <= $request['stok' . $i]) {
                     DB::table('order_item')->insert([
                         'order_id' => $order_Id,
                         'item_id' => $request['id' . $i],
@@ -133,6 +133,7 @@ class OrderController extends Controller
                     $stokakhir = $stokawal - $stokperubahan;
                     DB::table('items')->where('id', $request['id' . $i])->update(['stok' => $stokakhir]);
                     // dump($stokawal);
+                    $tagihan = $tagihan + ($stokperubahan * $request['harga' . $i]);
                 } else {
                     for ($j = 1; $j < $i; $j++) {
                         $stokawal = $request['stok' . $j];
@@ -145,7 +146,8 @@ class OrderController extends Controller
                     return redirect()->route('orders.index');
                 }
             }
-            $request->session()->flash('success', "Order berhasil ditambahkan.");
+            $tagihanakhir = $tagihan * 1.11;
+            $request->session()->flash('success', "Order berhasil ditambahkan dengan tagihan sebesar Rp. {$tagihanakhir}.");
             return redirect()->route('orders.index');
         }
     }
@@ -158,7 +160,11 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        //
+        $items = Item::all();
+        $orders = Order::all();
+        $pivot = DB::table('order_item')->get();
+        $join = DB::table('orders')->join('order_item', 'orders.id', '=', 'order_item.order_id')->join('items', 'order_item.item_id', '=', 'items.id')->select('*')->get();
+        return view('orders.show', compact('items','orders','pivot','join'));
     }
 
     /**

@@ -32,6 +32,12 @@
                     <small>MAIN MENU</small>
                 </li>
                 {{-- Separator END --}}
+                <a href="{{ url('/index') }}" class="bg-dark list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-start align-items-center">
+                        <span class="fa fa-film fa-fw mr-3"></span>
+                        <span class="menu-collapsed">Index</span>
+                    </div>
+                </a>
                 <a href="{{ route('items.index') }}" class="bg-dark list-group-item list-group-item-action">
                     <div class="d-flex w-100 justify-content-start align-items-center">
                         <span class="fa fa-film fa-fw mr-3"></span>
