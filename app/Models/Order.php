@@ -11,7 +11,7 @@ class Order extends Model
 
     protected $guarded = [];
 
-    public $incrementing = true;
+    // public $incrementing = true;
 
     public function items()
     {

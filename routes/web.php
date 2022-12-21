@@ -17,9 +17,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {return view('index');});
 Route::get('/index', function () {return view('index');});
-Route::resource('items', ItemController::class);
-Route::get('/order', [OrderController::class, 'order']);
-Route::get('/order/order', [OrderController::class, 'order']);
-Route::get('/order/createOrder', [OrderController::class, 'createOrder']);
 
-Route::get('/order/create', [OrderController::class, 'create']);
+Route::resource('items', ItemController::class);
+Route::resource('orders', OrderController::class);
+
+// Route::get('/order', [OrderController::class, 'order']);
+// Route::get('/order/order', [OrderController::class, 'order']);
+// Route::get('/order/createOrder', [OrderController::class, 'createOrder']);
+
+// Route::get('/order/create', [OrderController::class, 'create']);

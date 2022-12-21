@@ -23,7 +23,8 @@
                         <h2>Orders List</h2>
                     </div>
                     <div class="col-sm-6">
-                        <a href="{{ url('/order/createOrder') }}" class="btn btn-success">
+                        {{-- <a href="{{ url('/order/createOrder') }}" class="btn btn-success"> --}}
+                            <a href="{{ route('orders.create') }}" class="btn btn-success">
                             <i class="fa fa-plus fa-fw" aria-hidden="true"></i>
                             <span>Add New Order</span>
                         </a>
@@ -40,22 +41,32 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @php
+                        $index=0;
+                    @endphp
                     @forelse ($orders as $order)
                         <tr>
                             <th width="50%" scope="row">{{ $loop->iteration }}</th>
-                            <td width="50%">{{ $order->id }}</td>
-                            <td width="50%">{{ $order->status }}</td>
-                            {{-- <td>
-                                <input class="form-check-input" type="radio" name="status" id="status" {{ old('status') ? 'checked' : '' }}>
-                                <label class="form-check-label" for="status">
-                                    {{ __('Menunggu Pembayaran') }}
-                                </label>
-                                <BR>
-                                <input class="form-check-input" type="radio" name="status" id="status" {{ old('status') ? 'checked' : '' }}>
-                                <label class="form-check-label" for="status">
-                                    {{ __('Selesai') }}
-                                </label>
-                            </td> --}}
+                            <td width="30%">{{ $order->id }}</td>
+                            {{-- <td width="50%">{{ $order->status }}</td> --}}
+                            <td>
+                                <div class="row p-2">
+                                    <div class="col-sm-8">
+                                        <input class="form-check-input" type="radio" name="status[{{ $order->id }}]" id="status"
+                                            {{ old('status') ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="status">
+                                            {{ __('Menunggu Pembayaran') }}
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <input class="form-check-input" type="radio" name="status[{{ $order->id }}]" id="status"
+                                            {{ old('status') ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="status">
+                                            {{ __('Selesai') }}
+                                        </label>
+                                    </div>
+                                </div>
+                            </td>
                         </tr>
                     @empty
                         <tr>

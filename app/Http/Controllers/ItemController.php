@@ -45,6 +45,7 @@ class ItemController extends Controller
         $validated = $request->validate($rules);
         Item::create($validated);
 
+
         $request->session()->flash('success', "Item yang bernama {$validated['nama']} sudah berhasil ditambahkan.");
         return redirect()->route('items.index');
     }

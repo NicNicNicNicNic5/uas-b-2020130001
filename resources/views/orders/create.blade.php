@@ -2,8 +2,9 @@
 @section('title', 'Add New Order')
 @section('content')
     <h2>Add New Order</h2>
-    {{-- <form action="{{ route('orders.store') }}" method="POST"> --}}
-    <form>
+    {{-- <form action="{{ url('/order.store') }}" method="POST"> --}}
+    <form action="{{ route('orders.index') }}" method="POST">
+    {{-- <form> --}}
         {{-- nama rutenya khusus --}}
         @csrf
         {{-- Cross-site request forgery --}}
@@ -17,14 +18,16 @@
                 </tr>
             </thead>
             @forelse ($items as $item)
-                <tr>
+            <tr>
+                <input type="hidden" name="id{{ $loop->iteration }}" id="id" value={{ $item->id }}>
+                <input type="hidden" name="stok{{ $loop->iteration }}" id="stok" value={{ $item->stok }}>
                     <td width="25%">{{ $item->nama }}</td>
                     <td width="25%">{{ $item->stok }}</td>
                     <td width="25%">{{ "Rp. $item->harga" }}</td>
                     <td width="10%">
-                        <input type="number" class="form-control @error('stok') is-invalid @enderror" name="stok"
-                            id="stok" min="0" value="{{ old('stok') }}">
-                        @error('stok')
+                        <input type="number" class="form-control @error('quantity') is-invalid @enderror" name="quantity{{ $loop->iteration }}"
+                            id="quantity" min="0" value="0">
+                        @error('quantity')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </td>
@@ -35,22 +38,6 @@
                 </tr>
             @endforelse
         </table>
-
-        {{-- checkbox --}}
-        {{-- <div class="col-md-12 mb-3">
-                <label for="status">Status</label>
-                <input type="text" class="form-control @error('status') is-invalid @enderror" name="status"
-                    id="status" value="{{ old('status') }}">
-                @error('status')
-                    <div class="text-danger">{{ $message }}</div>
-                @enderror
-                <input class="form-check-input" type="checkbox" name="status" id="status"
-                    {{ old('status') ? 'checked' : '' }}>
-
-                <label class="form-check-label" for="status">
-                    {{ __('Menunggu Pembayaran') }}
-                </label>
-            </div> --}}
         <button class="btn btn-primary btn-lg btn-block" type="submit">Order</button>
     </form>
 @endsection
